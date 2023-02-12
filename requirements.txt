@@ -4,3 +4,4 @@ pytz
 openai==0.26.5
 whitenoise
 gunicorn
+django-cors-headers
