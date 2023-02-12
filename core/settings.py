@@ -29,6 +29,9 @@ ALLOWED_HOSTS = [
     'quinn-ai-stage.herokuapp.com'
 ]
 
+CORS_ORIGIN_WHITELIST = [
+    'https://mail.google.com',
+]
 
 # Application definition
 
