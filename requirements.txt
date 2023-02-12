@@ -1,4 +1,4 @@
 Django==4.1.6
 djangorestframework==3.14.0
 pytz
-openai=0.26.5
+openai==0.26.5
