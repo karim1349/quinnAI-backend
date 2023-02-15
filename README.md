@@ -17,7 +17,7 @@ This project has three branches:
 - dev: This branch is used for development and testing. Data is stored with an SQLite database.
 - stage: This branch is hosted on Heroku, and is used for staging. Data is currently stored with an SQLite database.
 - prod: This branch is used for production and should only contain stable code. Data should be stored with a PostgreSQL database. 
-##Usage
+## Usage
 To run the app, switch to the dev branch and run the command python manage.py runserver. The app will be available at http://127.0.0.1:8000.
 
 The app provides the following end-points: 
