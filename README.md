@@ -3,7 +3,7 @@ This is a Django Rest Framework app that provides an API for the mail browser ex
 
 ## Prerequisites
 Before installing this app, make sure you have installed all necessary libraries. You can find them in the requirements.txt file.
-##Installation
+## Installation
 Clone the repository to your local machine.
 Create a virtual environment and activate it.
 Install the required packages by running pip install -r requirements.txt.
