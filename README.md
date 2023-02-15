@@ -1,5 +1,5 @@
 # Quinn AI - API
-This is a Django Rest Framework app that provides an API for the mail browser extension Quinn AI. It connects to OpenAI's API to offer different AI services.
+This is a Django Rest Framework app that provides an API for the mail browser extension Quinn AI. It connects to OpenAI's API to offer different AI services. It is build in a decentralized way to make the code easier to read. 
 
 ## Prerequisites
 Before installing this app, make sure you have installed all necessary libraries. You can find them in the requirements.txt file.
@@ -8,9 +8,8 @@ Clone the repository to your local machine.
 Create a virtual environment and activate it.
 Install the required packages by running pip install -r requirements.txt.
 Run the database migrations by running python manage.py migrate.
-
 ## Models
-
+- Email : this model stores the content of the mail received from the frontend (source), and the date of creation (created_at). On create, it automatically sends the received "body" value to openAI's API with the following message : "generate an answer for this email : " + source. The returned data is stored (body) and sent back to the frontend. 
 ## Branches
 This project has three branches:
 
