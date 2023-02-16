@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from urllib.parse import urlparse
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,14 +84,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+url = urlparse(os.environ.get('DATABASE_URL'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd7ld50c196f2b2',
-        'USER': 'jhowejwzttsoov',
-        'PASSWORD': '5f3611fbe525196bd7c0afaa854e5c283186780e26a1a2d07421f5fdd0526fbd',
-        'HOST': 'ec2-54-77-40-202.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'NAME': url.path[1:],
+        'USER': url.username,
+        'PASSWORD': url.password,
+        'HOST': url.hostname,
+        'PORT': url.port,
     }
 }
 
