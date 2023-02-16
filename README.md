@@ -9,7 +9,7 @@ Create a virtual environment and activate it.
 Install the required packages by running pip install -r requirements.txt.
 Run the database migrations by running python manage.py migrate.
 ## Models
-- Email : this model stores the content of the mail received from the frontend (source), and the date of creation (created_at). On create, it automatically sends the received "body" value to openAI's API with the following message : "generate an answer for this email : " + source. The returned data is stored (body) and sent back to the frontend. 
+- Email : this model stores the content of the mail received from the frontend (source), and the date of creation (created_at). On create, it automatically sends the received "source" value to openAI's API with the following message : "generate an answer for this email : " + source. The returned data is stored (body) and sent back to the frontend. 
 ## Branches
 This project has three branches:
 
