@@ -14,7 +14,7 @@ class EmailSerializer(ModelSerializer):
 
         response = openai.Completion.create(
         model="text-davinci-003",
-        prompt="generate an answer for this email : " + validated_data['source'],
+        prompt="generate an answer for this email conversation : " + validated_data['source'],
         temperature=0.7,
         max_tokens=256,
         top_p=1,
