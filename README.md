@@ -21,7 +21,8 @@ To run the app, switch to the dev branch and run the command python manage.py ru
 
 The app provides the following end-points: 
 - /api/email/
-- /admin/email/
+- /admin/
+
 To access the admin back-office, you'll need to provide credentials for superuser account. To obtain so, you can create a superuser by running python manage.py createsuperuser.
 Once it is done, you will have access to every dataset, with the ability to see, change and delete data. 
 
