@@ -15,11 +15,12 @@ class EmailSerializer(ModelSerializer):
         response = openai.Completion.create(
         model="text-ada-001",
         prompt="generate an answer for this email : " + validated_data['source'],
-        temperature=0.7,
+        temperature=0,
         max_tokens=256,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
+        stream=True,
         )
 
         for chunk in response:
