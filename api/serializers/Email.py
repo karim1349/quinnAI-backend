@@ -15,7 +15,7 @@ class EmailSerializer(ModelSerializer):
         response = openai.Completion.create(
         model="text-ada-001",
         prompt="generate an answer for this email : " + validated_data['source'],
-        temperature=0,
+        temperature=0.5,
         max_tokens=256,
         top_p=1,
         frequency_penalty=0,
