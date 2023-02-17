@@ -19,7 +19,8 @@ class EmailSerializer(ModelSerializer):
         max_tokens=256,
         top_p=1,
         frequency_penalty=0,
-        presence_penalty=0
+        presence_penalty=0,
+        stream=True,
         )
         validated_data['body'] = response['choices'][0]['text']
         return super().create(validated_data)
