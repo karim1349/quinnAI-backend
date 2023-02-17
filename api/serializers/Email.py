@@ -22,5 +22,9 @@ class EmailSerializer(ModelSerializer):
         presence_penalty=0,
         stream=True,
         )
-        validated_data['body'] = response['choices'][0]['text']
+
+        for chunk in response:
+            if chunk['object'] == 'text':
+                validated_data['body'] = chunk['text']
+                break
         return super().create(validated_data)
