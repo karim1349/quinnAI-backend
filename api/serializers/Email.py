@@ -15,16 +15,11 @@ class EmailSerializer(ModelSerializer):
         response = openai.Completion.create(
         model="text-ada-001",
         prompt="generate an answer for this email : " + validated_data['source'],
-        temperature=0,
+        temperature=0.5,
         max_tokens=256,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
-        stream=True,
         )
-
-        for chunk in response:
-            if chunk['object'] == 'text':
-                validated_data['body'] = chunk['text']
-                break
+        validated_data['body'] = response['choices'][0]['text']
         return super().create(validated_data)
