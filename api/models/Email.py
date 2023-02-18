@@ -2,7 +2,7 @@ from django.db import models
 
 class Email(models.Model):
     body = models.TextField(blank=True, null=True)
-    #user = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.EmailField(blank=True, null=True)
     source = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

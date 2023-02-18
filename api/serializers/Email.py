@@ -13,8 +13,8 @@ class EmailSerializer(ModelSerializer):
     def create(self, validated_data):
 
         response = openai.Completion.create(
-        model="text-davinci-001",
-        prompt="génère une réponse à cette conversation d'emails : " + validated_data['source'],
+        model="text-davinci-003",
+        prompt="génère le texte d'une réponse de " + validated_data['user'] + " à cette conversation d'emails : " + validated_data['source'],
         temperature=0.5,
         max_tokens=256,
         top_p=1,
