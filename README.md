@@ -28,3 +28,4 @@ Once it is done, you will have access to every dataset, with the ability to see,
 
 ## Deploy
 The stage branch is connected to the Heroku app. To deploy any change, you just have to push it on the stage branch, Heroku will automatically publish those changes within a minute.
+Environment variables (like the OpenAI API Key, or Postgres database informations) are stored as env variables in the Heroku administration panel. 
