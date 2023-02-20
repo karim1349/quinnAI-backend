@@ -1,3 +1,3 @@
 from .Email import EmailViewSet
-
-__all__ = ['EmailViewSet']
+from .functions import orthographe
+__all__ = ['EmailViewSet', 'orthographe']
