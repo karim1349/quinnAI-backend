@@ -8,4 +8,5 @@ router.register('email', views.EmailViewSet, 'email')
 urlpatterns = [
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('api/orthographe/', views.orthographe)
 ]
