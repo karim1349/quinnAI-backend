@@ -5,6 +5,7 @@ import os
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
+
 class EmailSerializer(ModelSerializer):
     class Meta:
         model = Email
