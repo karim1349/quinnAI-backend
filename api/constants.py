@@ -33,3 +33,4 @@ EMAIL_LABEL_CHOICES = CATEGORIES = [
     "Fitness or Exercise",
     "Hobbies or Interests"
 ]
+ORTHOGRAPH_PROMPT = "renvoie moi ce texte sans les potentielles fautes d'orthographes : {}"
