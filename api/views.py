@@ -1,7 +1,6 @@
-import openai
 from rest_framework.viewsets import ModelViewSet
 
-from api.open_ai_client import classify_email, orthographe_correction, orthograph_correction
+from api.open_ai_client import classify_email, orthograph_correction
 from api.serializers import EmailSerializer
 from api.models import Email
 from rest_framework.response import Response

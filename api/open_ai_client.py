@@ -3,8 +3,9 @@ import os
 import openai
 
 from api.constants import CLASSIFY_PROMPT, EMAIL_LABEL_CHOICES, ORTHOGRAPH_PROMPT
+from django.conf import settings
 
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+openai.api_key = settings.OPENAI_API_KEY
 
 
 def classify_email(subject: str, sender:str) -> str:
