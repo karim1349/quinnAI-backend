@@ -27,13 +27,13 @@ class EmailViewSet(ModelViewSet):
         suggestions = classify_email(data["subject"], data["sender"])
         return Response({'suggestions': suggestions}, status=200)
 
-@action(detail=False, methods=['post'])
-def orthographe(self, request, *args, **kwargs):
-    serializer = self.get_serializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    data = serializer.data
-    try:
-        correction = orthograph_correction(data['source'])
-        return Response({'body': correction})
-    except (ValueError, TypeError):
-        return Response({'error': 'An error has occured.'}, status=400)
+    @action(detail=False, methods=['post'])
+    def orthographe(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        try:
+            correction = orthograph_correction(data['source'])
+            return Response({'body': correction})
+        except (ValueError, TypeError):
+            return Response({'error': 'An error has occured.'}, status=400)
