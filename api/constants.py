@@ -34,3 +34,5 @@ EMAIL_LABEL_CHOICES = CATEGORIES = [
     "Hobbies or Interests"
 ]
 ORTHOGRAPH_PROMPT = "renvoie moi ce texte sans les potentielles fautes d'orthographes : {}"
+
+ANSWER_HEADLINE_PROMPT = "Draft 3 possible headlines for the follow mail with max 8 words per headline : {}"

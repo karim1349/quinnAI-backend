@@ -2,7 +2,7 @@ import os
 
 import openai
 
-from api.constants import CLASSIFY_PROMPT, EMAIL_LABEL_CHOICES, ORTHOGRAPH_PROMPT
+from api.constants import CLASSIFY_PROMPT, EMAIL_LABEL_CHOICES, ORTHOGRAPH_PROMPT, ANSWER_HEADLINE_PROMPT
 from django.conf import settings
 
 openai.api_key = settings.OPENAI_API_KEY
@@ -23,6 +23,19 @@ def classify_email(subject: str, sender:str) -> str:
 
 def orthograph_correction(source):
     prompt = ORTHOGRAPH_PROMPT.format(source)
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=prompt,
+        temperature=0.7,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    return response['choices'][0]['text'].strip()
+
+def headlines_generation(source):
+    prompt = ANSWER_HEADLINE_PROMPT.format(source)
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt=prompt,
