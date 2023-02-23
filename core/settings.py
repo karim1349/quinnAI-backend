@@ -40,8 +40,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+    # internal apps
+    'api',
+    'users',
+
+    # 3d party packages
     'rest_framework',
-    'api'
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'django_extensions',
+
 ]
 
 MIDDLEWARE = [
@@ -105,7 +118,43 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 
+]
+
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = "none"
+LOGIN_REDIRECT_URL = "/api"
+ACCOUNT_LOGOUT_ON_GET = True
+
+GOOGLE_CLIENT_ID = '114742795189-9oh9j2r01ciot0atd3c1f0v3ntrk3es5.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = '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'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile',
+                  'https://www.googleapis.com/auth/userinfo.email',
+                  'https://www.googleapis.com/auth/gmail.modify',
+                  'https://www.googleapis.com/auth/gmail.labels',
+                  'https://www.googleapis.com/auth/gmail.send',
+                  'https://www.googleapis.com/auth/gmail.compose',
+                  'https://www.googleapis.com/auth/gmail.insert',
+
+                  ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+            'prompt': 'consent',
+        },
+        'INIT_PARAMS': {
+            'client_id': GOOGLE_CLIENT_ID,
+            'client_secret': GOOGLE_CLIENT_SECRET,
+        },
+    }
+}
+# SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_STORE_TOKENS=True
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
