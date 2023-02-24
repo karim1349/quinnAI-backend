@@ -5,3 +5,8 @@ openai==0.26.5
 whitenoise
 gunicorn
 django-cors-headers
+django-allauth==0.51.0
+django-extensions==3.2.1
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
