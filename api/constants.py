@@ -35,4 +35,4 @@ EMAIL_LABEL_CHOICES = CATEGORIES = [
 ]
 ORTHOGRAPH_PROMPT = "renvoie moi ce texte sans les potentielles fautes d'orthographes : {}"
 
-ANSWER_HEADLINE_PROMPT = "Draft 3 possible headlines for the follow mail with max 8 words per headline : {}"
+ANSWER_HEADLINE_PROMPT = "Generate 3 responses to this email from {} with minimum 2 words, separated with pipe only : '{}'. Please generate at least three contradictive outcomes, for example : 'I agree|I disagree|We will see later' , with the following format : 'outcome1 ...|outcome2 ...|outcome3 ...'"

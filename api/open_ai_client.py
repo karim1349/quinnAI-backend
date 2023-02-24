@@ -34,8 +34,8 @@ def orthograph_correction(source):
     )
     return response['choices'][0]['text'].strip()
 
-def headlines_generation(source):
-    prompt = ANSWER_HEADLINE_PROMPT.format(source)
+def headlines_generation(sender, source):
+    prompt = ANSWER_HEADLINE_PROMPT.format(sender, source)
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt=prompt,

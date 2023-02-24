@@ -46,7 +46,7 @@ class EmailViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         data = serializer.data
         try:
-            correction = headlines_generation(data['source'])
+            correction = headlines_generation(data['sender'], data['source'])
             return Response({'body': correction})
         except (ValueError, TypeError):
             return Response({'error': 'An error has occured.'}, status=400)

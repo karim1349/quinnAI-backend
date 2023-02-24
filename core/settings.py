@@ -27,9 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'quinn-development.herokuapp.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    'd7e2-2a01-e0a-2a6-ab70-1580-eebd-f678-73b9.eu.ngrok.io'
 ]
 
+
+CORS_ORIGIN_WHITELIST = [
+    'https://mail.google.com',
+]
 
 # Application definition
 
@@ -41,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'api'
 ]
 
@@ -53,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
