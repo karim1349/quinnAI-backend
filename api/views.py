@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 
-from api.open_ai_client import classify_email, orthograph_correction, headlines_generation
+from api.open_ai_client import classify_email, orthograph_correction, headlines_generation, response_generation
 from api.serializers import EmailSerializer
 from api.models import Email
 from rest_framework.response import Response
@@ -50,3 +50,16 @@ class EmailViewSet(ModelViewSet):
             return Response({'body': correction})
         except (ValueError, TypeError):
             return Response({'error': 'An error has occured.'}, status=400)
+
+    @action(detail=False, methods=['post'])
+    @csrf_exempt
+    def responses(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        try:
+            correction = response_generation(data['sender'], data['source'], data['headline'])
+            return Response({'body': correction})
+        except (ValueError, TypeError):
+            return Response({'error': 'An error has occured.'}, status=400)
+    

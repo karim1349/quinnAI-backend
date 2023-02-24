@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'quinn-development.herokuapp.com',
     '127.0.0.1',
-    'd7e2-2a01-e0a-2a6-ab70-1580-eebd-f678-73b9.eu.ngrok.io'
+    'ad76-2001-861-5386-4590-a8a2-934f-8f36-ced8.eu.ngrok.io'
 ]
 
 
