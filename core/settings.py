@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure-3u5qwfvl+1goq_r+8*sylt!v28e&80v4)@3vw%@w_-6p36=$kg
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'quinn-development.herokuapp.com',
-    '127.0.0.1'
+    "*", #temporary make it star
+    # 'quinn-development.herokuapp.com',
+    # '127.0.0.1'
 ]
 
 

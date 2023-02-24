@@ -1,15 +1,19 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, CharField
 from api.models import Email
 import openai
 import os
+
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 
 class EmailSerializer(ModelSerializer):
+    label_id = CharField(max_length=100)
+
     class Meta:
         model = Email
-        fields = '__all__'
+        fields = ['id', 'email_id', 'body', 'user', 'created_at', 'subject', 'sender', 'source', 'labels', 'label_id']
+        read_only_fields = ['id', 'user', 'created_at', 'labels']
 
     def create(self, validated_data):
 

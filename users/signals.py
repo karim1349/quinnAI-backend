@@ -10,5 +10,5 @@ def handle_user_signed_up(sender, request, user, **kwargs):
     token = social_login.token
 
     # Create a new Subscriber object and save it
-    subscriber = Subscriber.objects.get_or_create(user=user, defaults={"access_token": token.token, "access_secret": token.token_secret, "expires_at": token.expires_at})
+    subscriber = Subscriber.objects.get_or_create(user=user, tokens=0)
     return subscriber
