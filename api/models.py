@@ -8,6 +8,7 @@ class Email(models.Model):
     subject = models.CharField(db_index=True, max_length=256, null=True)
     sender = models.EmailField(db_index=True, null=True)
     source = models.TextField(null=True)
+    headline = models.TextField(null=True)
 
     def __str__(self):
         return self.body
