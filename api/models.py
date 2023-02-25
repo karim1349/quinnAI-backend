@@ -19,6 +19,7 @@ class Email(models.Model):
     sender = models.EmailField(db_index=True, null=True)
     source = models.TextField(null=True)
     labels = models.ManyToManyField(Label, blank=True)
+    headline = models.TextField(null=True)
 
     def __str__(self):
         return self.email_id

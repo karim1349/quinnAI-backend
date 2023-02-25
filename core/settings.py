@@ -26,11 +26,14 @@ SECRET_KEY = 'django-insecure-3u5qwfvl+1goq_r+8*sylt!v28e&80v4)@3vw%@w_-6p36=$kg
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "*", #temporary make it star
-    # 'quinn-development.herokuapp.com',
-    # '127.0.0.1'
+    'quinn-development.herokuapp.com',
+    '127.0.0.1',
 ]
 
+
+CORS_ORIGIN_WHITELIST = [
+    'https://mail.google.com',
+]
 
 # Application definition
 
@@ -49,13 +52,12 @@ INSTALLED_APPS = [
 
     # 3d party packages
     'rest_framework',
-
+    'corsheaders',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django_extensions',
-
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
