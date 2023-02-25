@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     # 3d party packages
     'rest_framework',
     'corsheaders',
-    'api'
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
