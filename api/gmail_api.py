@@ -1,16 +1,13 @@
-import google.auth
-from django.conf import settings
-from django.contrib.auth.models import User
-from google.oauth2.credentials import Credentials
-from googleapiclient.errors import HttpError
-from googleapiclient.discovery import build
 from allauth.socialaccount.models import SocialToken
+from django.conf import settings
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
-SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
+SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
 
 
 def handle_errors(callable):
-
     def wrapper(*args, **kwargs):
         try:
             return callable(*args, **kwargs)
@@ -23,26 +20,34 @@ def handle_errors(callable):
 class GmailClient:
     def __init__(self, user_instance):
         social_token = SocialToken.objects.get(account__user=user_instance)
-        info = {"token": social_token.token, "refresh_token": social_token.token_secret,
-                "client_id": settings.GOOGLE_CLIENT_ID, "client_secret": settings.GOOGLE_CLIENT_SECRET, }
+        info = {
+            "token": social_token.token,
+            "refresh_token": social_token.token_secret,
+            "client_id": settings.GOOGLE_CLIENT_ID,
+            "client_secret": settings.GOOGLE_CLIENT_SECRET,
+        }
         self._credentials = Credentials.from_authorized_user_info(info=info)
-        self._service = build('gmail', 'v1', credentials=self._credentials)
+        self._service = build("gmail", "v1", credentials=self._credentials)
 
     @handle_errors
     def get_user_labels(self):
-        service = build('gmail', 'v1', credentials=self._credentials)
-        user_labels = service.users().labels().list(userId='me').execute()
-        return user_labels['labels']
+        service = build("gmail", "v1", credentials=self._credentials)
+        user_labels = service.users().labels().list(userId="me").execute()
+        return user_labels["labels"]
 
     @handle_errors
     def get_message_details(self, message_id):
-        last_email = self._service.users().messages().get(userId='me', id=message_id).execute()
+        last_email = (
+            self._service.users().messages().get(userId="me", id=message_id).execute()
+        )
         return last_email
 
     @handle_errors
     def get_last_email(self):
 
-        results = self._service.users().messages().list(userId='me', maxResults=1).execute()
+        results = (
+            self._service.users().messages().list(userId="me", maxResults=1).execute()
+        )
         # last_email_id = results['messages'][0]['id']
         return results
 
@@ -52,20 +57,27 @@ class GmailClient:
         # Update the label of the email message
         label_ids = [label_id]
         # Call the Gmail API to update the label of the email message
-        return self._service.users().messages().modify(userId='me', id=email_id, body={'addLabelIds': label_ids}).execute()
+        return (
+            self._service.users()
+            .messages()
+            .modify(userId="me", id=email_id, body={"addLabelIds": label_ids})
+            .execute()
+        )
 
     @handle_errors
     def create_label(self, name):
         label_object = {
-            'name': name,
-            'labelListVisibility': 'labelShow',
-            'messageListVisibility': 'show',
-            'color': {
-                'textColor': '#ffffff',
-                'backgroundColor': '#000000'
-            }
+            "name": name,
+            "labelListVisibility": "labelShow",
+            "messageListVisibility": "show",
+            "color": {"textColor": "#ffffff", "backgroundColor": "#000000"},
         }
-        return self._service.users().labels().create(userId='me', body=label_object).execute()
+        return (
+            self._service.users()
+            .labels()
+            .create(userId="me", body=label_object)
+            .execute()
+        )
 
 
 # user = User.objects.last()

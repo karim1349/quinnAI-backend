@@ -1,13 +1,18 @@
-from rest_framework.viewsets import ModelViewSet
-
-from api.open_ai_client import classify_email, orthograph_correction, headlines_generation, response_generation
-from api.serializers import EmailSerializer
-from api.models import Email
-from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import action
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
+from api.models import Email
+from api.open_ai_client import (
+    classify_email,
+    headlines_generation,
+    orthograph_correction,
+    response_generation,
+    score_email,
+)
+from api.serializers import EmailSerializer
 from api.services import set_email_label
 from utils.parser import parse_email_content_html
 
@@ -23,15 +28,15 @@ class EmailViewSet(ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=["post"])
     def predict_label(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
         suggestions = classify_email(data["subject"], data["sender"])
-        return Response({'suggestions': suggestions}, status=200)
+        return Response({"suggestions": suggestions}, status=200)
 
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=["post"])
     def orthographe(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -40,9 +45,9 @@ class EmailViewSet(ModelViewSet):
             correction = orthograph_correction(data['source'])
             return Response({'body': correction})
         except (ValueError, TypeError):
-            return Response({'error': 'An error has occured.'}, status=400)
+            return Response({"error": "An error has occured."}, status=400)
 
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=["post"])
     def set_label(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -53,8 +58,7 @@ class EmailViewSet(ModelViewSet):
 
             return Response(predicted_label)
         except (ValueError, TypeError):
-            return Response({'error': 'An error has occured.'}, status=400)
-
+            return Response({"error": "An error has occured."}, status=400)
 
     @csrf_exempt
     @action(detail=False, methods=['post'])
@@ -80,5 +84,16 @@ class EmailViewSet(ModelViewSet):
             correction = response_generation(data['sender'], data['source'], data['headline'])
             return Response({'body': correction})
         except (ValueError, TypeError):
-            return Response({'error': 'An error has occured.'}, status=400)
-  
+            return Response({"error": "An error has occured."}, status=400)
+
+    @action(detail=False, methods=["post"])
+    @csrf_exempt
+    def predict_email_score(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        try:
+            score = score_email(data["subject"], data["sender"])
+            return Response({"score": score})
+        except (ValueError, TypeError) as ex:
+            return Response({"error": f"An error has occured.{ex}"}, status=400)
