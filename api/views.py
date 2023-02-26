@@ -30,6 +30,9 @@ class EmailViewSet(ModelViewSet):
 
     @action(detail=False, methods=["post"])
     def predict_label(self, request, *args, **kwargs):
+        """
+        need only email id
+        """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
@@ -49,6 +52,9 @@ class EmailViewSet(ModelViewSet):
 
     @action(detail=False, methods=["post"])
     def set_label(self, request, *args, **kwargs):
+        """
+            need only email id
+        """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
@@ -89,6 +95,9 @@ class EmailViewSet(ModelViewSet):
     @action(detail=False, methods=["post"])
     @csrf_exempt
     def predict_email_score(self, request, *args, **kwargs):
+        """
+        need only email id
+        """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
