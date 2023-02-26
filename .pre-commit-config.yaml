@@ -1,0 +1,63 @@
+default_language_version:
+    python: python3.8
+
+repos:
+  - repo: https://github.com/PyCQA/autoflake
+    rev: 'v1.4'
+    hooks:
+    - id: autoflake
+      args: ['--in-place', '--remove-all-unused-imports', '--ignore-init-module-imports']
+      name: autoflake
+      entry: autoflake
+      language: python
+      'types': [python]
+      require_serial: true
+      exclude: ^(social_network/models.py|event/json_apis.py)
+
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      - id: check-toml
+      - id: check-yaml
+      - id: mixed-line-ending
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-docstring-first
+      - id: check-added-large-files
+      - id: check-byte-order-marker
+      - id: check-executables-have-shebangs
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (python)
+      - id: isort
+        name: isort (cython)
+        types: [cython]
+      - id: isort
+        name: isort (pyi)
+        types: [pyi]
+
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        exclude: ^.*\b(migrations)\b.*$
+
+  - repo: https://github.com/lk16/detect-missing-init
+    rev: v0.1.4
+    hooks:
+    - id: detect-missing-init
+      args: ['--create', "--track"]
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+    - id: flake8
+      additional_dependencies:
+        - "flake8-print==5.0.0"
