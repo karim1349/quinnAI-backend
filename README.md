@@ -9,7 +9,7 @@ Create a virtual environment and activate it.
 Install the required packages by running pip install -r requirements.txt.
 Run the database migrations by running python manage.py migrate.
 ## Models
-- Email : this model stores the content of the mail received from the frontend (source), and the date of creation (created_at). On create, it automatically sends the received "body" value to openAI's API with the following message : "generate an answer for this email : " + source. The returned data is stored (body) and sent back to the frontend. 
+- Email : this model stores the content of the mail received from the frontend (source), the writing user's email, and the date of creation (created_at). On create, it automatically sends the received "source" value to openAI's API with the following message : "génère le texte d'une réponse de : " + user + " à cette conversation d'emails : " + source. The returned data is stored (body) and sent back to the frontend. 
 ## Branches
 This project has three branches:
 
@@ -21,9 +21,11 @@ To run the app, switch to the dev branch and run the command python manage.py ru
 
 The app provides the following end-points: 
 - /api/email/
-- /admin/email/
+- /admin/
+
 To access the admin back-office, you'll need to provide credentials for superuser account. To obtain so, you can create a superuser by running python manage.py createsuperuser.
 Once it is done, you will have access to every dataset, with the ability to see, change and delete data. 
 
 ## Deploy
 The stage branch is connected to the Heroku app. To deploy any change, you just have to push it on the stage branch, Heroku will automatically publish those changes within a minute.
+Environment variables (like the OpenAI API Key, or Postgres database informations) are stored as env variables in the Heroku administration panel. 

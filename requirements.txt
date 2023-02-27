@@ -6,3 +6,9 @@ whitenoise
 gunicorn
 django-cors-headers
 psycopg2
+django-allauth==0.51.0
+django-extensions==3.2.1
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+django-cors-headers==3.14.0
