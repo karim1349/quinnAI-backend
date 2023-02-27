@@ -56,6 +56,7 @@ class EmailViewSet(ModelViewSet):
 
 
     @csrf_exempt
+    @action(detail=False, methods=['post'])
     def generate_headlines(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
