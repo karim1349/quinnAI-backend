@@ -37,4 +37,4 @@ ORTHOGRAPH_PROMPT = "renvoie moi ce texte sans les potentielles fautes d'orthogr
 
 ANSWER_HEADLINE_PROMPT = "Generate exactly 4 responses to this email : '{}' from my email : '{}' with minimum 5 words and maximum 8 words, separated with pipe only. Please generate at least four contradictive outcomes. I insist on the fact that they need to be contradictive between each other. Don't add any backslash "
 
-ANSWER_CONTENT_PROMPT = "you are an email assistant. generate a professional answer to this email : '{}' from my email : '{}' taking in consideration the following reply summary : '{}', in the same idiom as the source message. "
+ANSWER_CONTENT_PROMPT = "You are an email assistant and you can reply like it was me ({}) , i want you to reply to the email : '{}' taking in consideration the following reply summary : '{}', in the same idiom as the source message."
