@@ -3,14 +3,9 @@ import re
 import openai
 from django.conf import settings
 
-from api.constants import (
-    ANSWER_CONTENT_PROMPT,
-    ANSWER_HEADLINE_PROMPT,
-    CLASSIFY_PROMPT,
-    EMAIL_LABEL_CHOICES,
-    ORTHOGRAPH_PROMPT,
-    SCORE_EMAIL_PROMPT,
-)
+from api.constants import (ANSWER_CONTENT_PROMPT, ANSWER_HEADLINE_PROMPT,
+                           CLASSIFY_PROMPT, EMAIL_LABEL_CHOICES,
+                           ORTHOGRAPH_PROMPT, SCORE_EMAIL_PROMPT)
 
 openai.api_key = settings.OPENAI_API_KEY
 

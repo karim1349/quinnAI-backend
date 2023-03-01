@@ -5,13 +5,9 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from api.models import Email
-from api.open_ai_client import (
-    classify_email,
-    headlines_generation,
-    orthograph_correction,
-    response_generation,
-    score_email,
-)
+from api.open_ai_client import (classify_email, headlines_generation,
+                                orthograph_correction, response_generation,
+                                score_email)
 from api.serializers import EmailSerializer
 from api.services import set_email_label
 from utils.parser import parse_email_content_html
