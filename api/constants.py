@@ -35,6 +35,6 @@ EMAIL_LABEL_CHOICES = CATEGORIES = [
 ]
 ORTHOGRAPH_PROMPT = "renvoie moi ce texte sans les potentielles fautes d'orthographes : {}"
 
-ANSWER_HEADLINE_PROMPT = "Generate four responses to an email from a specific person. Each response should be between 5 and 7 words long and separated by a pipe symbol (|). The goal is to provide at least four outcomes to the original email. To clarify, the responses should be mutually exclusive and cannot all be true at the same time. The format for the four responses should be 'response1|response2|response3|response4'. Email : '{}'. Email sender : '{}'"
+ANSWER_HEADLINE_PROMPT = "Generate four responses to the latest email from a specific person. Each response should be between 5 and 7 words long and separated by a pipe symbol (|). The goal is to provide at least four outcomes to the original email. To clarify, the responses should be mutually exclusive and cannot all be true at the same time. The format for the four responses should be 'response1|response2|response3|response4'. Email : '{}'. Email sender : '{}'."
 
-ANSWER_CONTENT_PROMPT = "You are an email assistant and you can reply like it was me ({}) , i want you to reply to the email : '{}' taking in consideration the following reply summary : '{}', in the same idiom as the source message."
+ANSWER_CONTENT_PROMPT = "You are an email assistant and you can reply like it was me , i want you to reply to the latest email  taking in consideration the following reply summary : '{}', in the same idiom as the source message. Email : '{}'. Email sender (me) : '{}'. "
