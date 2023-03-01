@@ -35,6 +35,6 @@ EMAIL_LABEL_CHOICES = CATEGORIES = [
 ]
 ORTHOGRAPH_PROMPT = "renvoie moi ce texte sans les potentielles fautes d'orthographes : {}"
 
-ANSWER_HEADLINE_PROMPT = "Generate exactly 4 responses to this email : '{}' from my email : '{}' with minimum 5 words and maximum 8 words, separated with pipe only. Please generate at least four contradictive outcomes. I insist on the fact that they need to be contradictive between each other. Don't add any backslash "
+ANSWER_HEADLINE_PROMPT = "Generate four responses to an email from a specific person. Each response should be between 5 and 7 words long and separated by a pipe symbol (|). The goal is to provide at least four outcomes to the original email. To clarify, the responses should be mutually exclusive and cannot all be true at the same time. The format for the four responses should be 'response1|response2|response3|response4'. Email : '{}'. Email sender : '{}'"
 
 ANSWER_CONTENT_PROMPT = "You are an email assistant and you can reply like it was me ({}) , i want you to reply to the email : '{}' taking in consideration the following reply summary : '{}', in the same idiom as the source message."
