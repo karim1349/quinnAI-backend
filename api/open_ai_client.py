@@ -51,13 +51,13 @@ def response_generation(sender, source, headline):
     return response["choices"][0]["text"].strip()
 
 
-def score_email(subject, sender):
+def score_email(subject, sender, source):
     """
     Scores the importance of an email based on the subject and sender.
     Returns a score from 0 to 100.
     """
 
-    prompt = SCORE_EMAIL_PROMPT.format(subject, sender)
+    prompt = SCORE_EMAIL_PROMPT.format(subject, sender, source)
     response = call_model(prompt)
     # score = int(response.choices[0].text.strip())
     pattern = re.compile(r'([0-9]+)')

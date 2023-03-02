@@ -98,7 +98,7 @@ class EmailViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         data = serializer.data
         try:
-            score = score_email(data["subject"], data["sender"])
+            score = score_email(data["subject"], data["sender"], data['source'])
             return Response({"score": score})
         except (ValueError, TypeError) as ex:
             return Response({"error": f"An error has occured.{ex}"}, status=400)

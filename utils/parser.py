@@ -249,5 +249,5 @@ mm = """
     <div dir="ltr">EL HASSANE</div>
 </div>
 """
-xx = parse_email_content_html(karim)
-print(xx)
+# xx = parse_email_content_html(karim)
+# print(xx)
