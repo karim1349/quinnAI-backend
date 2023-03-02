@@ -63,6 +63,7 @@ class EmailViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         data = serializer.data
         source = parse_email_content_html(data['source'])
+        print(source)
         try:
             correction = headlines_generation(data['sender'], source)
             return Response({'body': correction})
