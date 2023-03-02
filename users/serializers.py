@@ -4,6 +4,7 @@ from users.models import Subscriber
 
 
 class SubscriberSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Subscriber
 

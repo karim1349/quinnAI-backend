@@ -37,10 +37,12 @@ def orthograph_correction(source):
     return response["choices"][0]["text"].strip()
 
 
+
 def headlines_generation(sender, source):
     prompt = ANSWER_HEADLINE_PROMPT.format(sender, source)
     response = call_model(prompt)
     return response["choices"][0]["text"].strip()
+
 
 
 def response_generation(sender, source, headline):
