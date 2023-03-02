@@ -62,10 +62,10 @@ class EmailViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
-        source = parse_email_content_html(data['source'])
-        print("source =  " + source)
+        #source = parse_email_content_html(data['source'])
+        #print("source =  " + source)
         try:
-            correction = headlines_generation(data['sender'], source)
+            correction = headlines_generation(data['sender'], data['source'])
             return Response({'body': correction})
         except (ValueError, TypeError):
             return Response({'error': 'An error has occured.'}, status=400)
