@@ -10,6 +10,11 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 class EmailSerializer(ModelSerializer):
     label_id = CharField(max_length=100, required=False)
+    body = CharField(required=False)
+    subject = CharField(max_length=255, required=False)
+    sender = CharField(max_length=255, required=False)
+    headline = CharField(max_length=255, required=False)
+    source = CharField(required=False)
 
     class Meta:
         model = Email

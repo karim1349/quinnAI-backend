@@ -65,13 +65,7 @@ class GmailClient:
         )
 
     @handle_errors
-    def create_label(self, name):
-        label_object = {
-            "name": name,
-            "labelListVisibility": "labelShow",
-            "messageListVisibility": "show",
-            "color": {"textColor": "#ffffff", "backgroundColor": "#000000"},
-        }
+    def create_label(self, label_object):
         return (
             self._service.users()
             .labels()
