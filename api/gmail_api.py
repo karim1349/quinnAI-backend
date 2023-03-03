@@ -80,3 +80,5 @@ class GmailClient:
 # cl.get_message_details("18682cd67ef83143")
 # cl.last_email("elhassanegargem@gmail.com") dial kamil 186830a6953d9681
 # cl.get_user_labels("elhassanegargem@gmail.com")
+# msg["payload"]["parts"][0]["body"]
+

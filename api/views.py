@@ -4,12 +4,13 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from api.models import Email
+from api.models import Email, Label
 from api.open_ai_client import (classify_email, headlines_generation,
                                 orthograph_correction, response_generation,
                                 score_email)
-from api.serializers import EmailSerializer
+from api.serializers import EmailSerializer, LabelSerializer
 from api.services import set_email_label
+from api.tasks import creating_user_labels
 from utils.parser import parse_email_content_html
 
 
@@ -98,7 +99,26 @@ class EmailViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         data = serializer.data
         try:
-            score = score_email(data["subject"], data["sender"], data['source'])
+            score = score_email(data["subject"], data["sender"], data['body'])
             return Response({"score": score})
         except (ValueError, TypeError) as ex:
             return Response({"error": f"An error has occured.{ex}"}, status=400)
+
+
+class LabelViewSet(ModelViewSet):
+
+    queryset = Label.objects.all()
+    serializer_class = LabelSerializer
+
+    @action(detail=False, methods=["post"])
+    @csrf_exempt
+    def create_labels(self, request, *args, **kwargs):
+        """
+        we must add permissions
+        """
+
+        serializer = self.get_serializer(data=request.data, many=True)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        labels = creating_user_labels(request.user, data)
+        return Response(labels, status=status.HTTP_201_CREATED)
