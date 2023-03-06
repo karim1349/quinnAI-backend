@@ -4,5 +4,6 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register('emails', views.EmailViewSet, 'email')
+router.register('labels', views.LabelViewSet, 'label')
 
 

@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'quinn-development.herokuapp.com',
     '127.0.0.1',
+    "*"
 ]
 
 
@@ -145,6 +146,7 @@ SOCIALACCOUNT_PROVIDERS = {
                   'https://www.googleapis.com/auth/gmail.send',
                   'https://www.googleapis.com/auth/gmail.compose',
                   'https://www.googleapis.com/auth/gmail.insert',
+                  'https://www.googleapis.com/auth/gmail.readonly'
 
                   ],
         'AUTH_PARAMS': {
