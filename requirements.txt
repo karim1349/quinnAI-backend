@@ -12,3 +12,5 @@ google-auth-httplib2
 google-auth-oauthlib
 django-cors-headers==3.14.0
 bs4
+celery==5.2.7
+redis

@@ -10,7 +10,7 @@ from api.open_ai_client import (classify_email, headlines_generation,
                                 score_email)
 from api.serializers import EmailSerializer, LabelSerializer
 from api.services import set_email_label
-from api.tasks import creating_user_labels
+from api.tasks import task_creating_user_labels
 from utils.parser import parse_email_content_html
 
 
@@ -120,5 +120,5 @@ class LabelViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
-        labels = creating_user_labels(request.user, data)
-        return Response(labels, status=status.HTTP_201_CREATED)
+        task_creating_user_labels.delay(request.user.pk, data)
+        return Response({"message":"labels created"}, status=status.HTTP_201_CREATED)
