@@ -96,7 +96,7 @@ class EmailViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         data = serializer.data
         try:
-            summary = conversation_summary(data['source'], data['summaryType'])
+            summary = conversation_summary(data['source'], data['summary_type'])
             return Response({'body': summary})
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)

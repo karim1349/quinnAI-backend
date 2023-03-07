@@ -17,7 +17,7 @@ class ModelException(Exception):
 
 def call_model(prompt, temperature=0.5, max_tokens=250, top_p=1, **kwargs):
     return openai.Completion.create(
-        engine="text-davinci-002",
+        engine="text-davinci-003",
         prompt=prompt,
         temperature=temperature,
         max_tokens=max_tokens,
@@ -62,6 +62,8 @@ def conversation_summary(source, summary_type):
     elif summary_type == "LONG_SUMMARY":
         prompt = SUMMARIZE_LONG_PROMPT.format(source)
         response = call_model(prompt)
+    else: 
+        raise ModelException("Invalid summary type")
     return response["choices"][0]["text"].strip()
 
 
