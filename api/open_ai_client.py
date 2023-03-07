@@ -5,7 +5,8 @@ from django.conf import settings
 
 from api.constants import (ANSWER_CONTENT_PROMPT, ANSWER_HEADLINE_PROMPT,
                            CLASSIFY_PROMPT, EMAIL_LABEL_CHOICES,
-                           ORTHOGRAPH_PROMPT, SCORE_EMAIL_PROMPT)
+                           ORTHOGRAPH_PROMPT, SCORE_EMAIL_PROMPT,
+                           SUMMARIZE_BULLETPOINTS_PROMPT, SUMMARIZE_LONG_PROMPT, SUMMARIZE_SHORT_PROMPT)
 
 openai.api_key = settings.OPENAI_API_KEY
 
@@ -48,6 +49,19 @@ def headlines_generation(sender, source):
 def response_generation(sender, source, headline):
     prompt = ANSWER_CONTENT_PROMPT.format(sender, source, headline)
     response = call_model(prompt)
+    return response["choices"][0]["text"].strip()
+
+
+def conversation_summary(source, summary_type):
+    if summary_type == "BULLET_POINTS":
+        prompt = SUMMARIZE_BULLETPOINTS_PROMPT.format(source)
+        response = call_model(prompt)
+    elif summary_type == "SHORT_SUMMARY":
+        prompt = SUMMARIZE_SHORT_PROMPT.format(source)
+        response = call_model(prompt)
+    elif summary_type == "LONG_SUMMARY":
+        prompt = SUMMARIZE_LONG_PROMPT.format(source)
+        response = call_model(prompt)
     return response["choices"][0]["text"].strip()
 
 

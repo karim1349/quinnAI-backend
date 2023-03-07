@@ -7,7 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 from api.models import Email, Label
 from api.open_ai_client import (classify_email, headlines_generation,
                                 orthograph_correction, response_generation,
-                                score_email)
+                                score_email, conversation_summary)
 from api.serializers import EmailSerializer, LabelSerializer
 from api.services import set_email_label
 from api.tasks import task_creating_user_labels
@@ -86,6 +86,18 @@ class EmailViewSet(ModelViewSet):
         try:
             correction = response_generation(data['sender'], data['source'], data['headline'])
             return Response({'body': correction})
+        except (ValueError, TypeError):
+            return Response({"error": "An error has occured."}, status=400)
+        
+    @action(detail=False, methods=['post'])
+    @csrf_exempt
+    def summarize_conversation(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        try:
+            summary = conversation_summary(data['source'], data['summaryType'])
+            return Response({'body': summary})
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)
 

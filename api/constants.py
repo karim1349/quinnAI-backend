@@ -41,6 +41,10 @@ ANSWER_HEADLINE_PROMPT = "Generate four responses to an email from a specific pe
 ANSWER_CONTENT_PROMPT = "You are an email assistant and you can reply like it was me ({}) , i want you to reply to the email or the first email  if you detect multiple emails : '{}' taking in consideration the following reply summary : '{}', in the same idiom as the source message."
 SCORE_EMAIL_PROMPT = "Score the importance of  this email from 0 to 100 where the subject {} from sender {} and the body is {} on a scale from 0 to 100, print only a number not a string"
 
+SUMMARIZE_BULLETPOINTS_PROMPT = "Résume le contenu de cette conversation d'email en puces :  {}."
+SUMMARIZE_SHORT_PROMPT = "Fais un court résumé de l'email que j'ai reçu: {}."
+SUMMARIZE_LONG_PROMPT = "Fais un long résumé de l'email que j'ai reçu: {}"
+
 Labels = labels = [
     {
         "name": "Health or Medical",
