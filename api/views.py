@@ -7,7 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 from api.models import Email, Label
 from api.open_ai_client import (classify_email, headlines_generation,
                                 orthograph_correction, response_generation,
-                                score_email, conversation_summary)
+                                score_email, conversation_summary, translate, meliorate, change_tone, detect_actions, redact_answer)
 from api.serializers import EmailSerializer, LabelSerializer
 from api.services import set_email_label
 from api.tasks import task_creating_user_labels
@@ -96,11 +96,73 @@ class EmailViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         data = serializer.data
         try:
-            summary = conversation_summary(data['source'], data['summary_type'])
+            summary = conversation_summary(data['source'], data['sub_action'])
             return Response({'body': summary})
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)
 
+    @action(detail=False, methods=["post"])
+    @csrf_exempt
+    def translate_email(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        try:
+            translation = translate(data['source'], data['sub_action'])
+            return Response({'body': translation})
+        except (ValueError, TypeError):
+            return Response({"error": "An error has occured."}, status=400)
+    
+    @action(detail=False, methods=["post"])
+    @csrf_exempt
+    def meliorate_email(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        try:
+            melioration = meliorate(data['source'], data['sub_action'])
+            return Response({'body': melioration})
+        except (ValueError, TypeError):
+            return Response({"error": "An error has occured."}, status=400)
+
+    @action(detail=False, methods=["post"])
+    @csrf_exempt
+    def change_tone_email(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        try:
+            tone = change_tone(data['source'], data['sub_action'])
+            return Response({'body': tone})
+        except (ValueError, TypeError):
+            return Response({"error": "An error has occured."}, status=400)
+    
+    @action(detail=False, methods=["post"])
+    @csrf_exempt
+    def detect_actions_email(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        try:
+            actions = detect_actions(data['source'])
+            return Response({'body': actions})
+        except (ValueError, TypeError):
+            return Response({"error": "An error has occured."}, status=400)
+    
+    @action(detail=False, methods=["post"])
+    @csrf_exempt
+    def redact_answer_email(self, request, *args, **kwargs):
+        print(request.data)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        print(data)
+        try:
+            redaction = redact_answer(data['source'], data['sender'])
+            return Response({'body': redaction})
+        except (ValueError, TypeError):
+            return Response({"error": "An error has occured."}, status=400)
+        
     @action(detail=False, methods=["post"])
     @csrf_exempt
     def predict_email_score(self, request, *args, **kwargs):

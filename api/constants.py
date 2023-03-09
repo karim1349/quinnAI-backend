@@ -45,6 +45,19 @@ SUMMARIZE_BULLETPOINTS_PROMPT = "Résume le contenu de cette conversation d'emai
 SUMMARIZE_SHORT_PROMPT = "Fais un court résumé de l'email que j'ai reçu: {}."
 SUMMARIZE_LONG_PROMPT = "Fais un long résumé de l'email que j'ai reçu: {}"
 
+TRANSLATE_PROMPT = "Translate this text : '{}' to {}."
+
+MELIORATE_PROMPT = "Meliorate this text : '{}'."
+SHORTEN_PROMPT = "Shorten this text : '{}'."
+LENGTHEN_PROMPT = "Lengthen this text : '{}'."
+SIMPLIFY_PROMPT = "Simplify this text : '{}'."
+
+CHANGE_TONE_PROMPT = "Change the tone of this text to make it {} : '{}'."
+
+DETECT_ACTIONS_PROMPT = "Detect the actions to take on this email : '{}'."
+
+REDACT_ANSWER_PROMPT = "Redact an answer from {} to this email conversation : '{}'."
+
 Labels = labels = [
     {
         "name": "Health or Medical",
