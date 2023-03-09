@@ -1,6 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -10,13 +11,21 @@ from api.open_ai_client import (classify_email, headlines_generation,
                                 score_email, conversation_summary, translate, meliorate, change_tone, detect_actions, redact_answer)
 from api.serializers import EmailSerializer, LabelSerializer
 from api.services import set_email_label
-from api.tasks import task_creating_user_labels
+from api.tasks import task_creating_user_labels, scoring_emails_of_user
 from utils.parser import parse_email_content_html
 
 
 class EmailViewSet(ModelViewSet):
-    queryset = Email.objects.all()
     serializer_class = EmailSerializer
+
+    def get_queryset(self):
+        # return Email.objects.filter(user=self.request.user)
+        return Email.objects.all()
+
+    @property
+    def user(self):
+        return self.request.user
+
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -175,6 +184,19 @@ class EmailViewSet(ModelViewSet):
         try:
             score = score_email(data["subject"], data["sender"], data['body'])
             return Response({"score": score})
+        except (ValueError, TypeError) as ex:
+            return Response({"error": f"An error has occured.{ex}"}, status=400)
+
+    @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
+    @csrf_exempt
+    def predict_multiple_emails_score(self, request, *args, **kwargs):
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
+        try:
+            scoring_emails_of_user(self.user.pk, max_results=10)
+            return Response({"score": "success"})
         except (ValueError, TypeError) as ex:
             return Response({"error": f"An error has occured.{ex}"}, status=400)
 
