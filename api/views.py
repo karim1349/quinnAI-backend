@@ -18,12 +18,11 @@ from utils.parser import parse_email_content_html
 class EmailViewSet(ModelViewSet):
     serializer_class = EmailSerializer
 
-    def get_queryset(self):
-        return Email.objects.filter(user=self.request.user)
+    # def get_queryset(self):
+    #     return Email.objects.filter(user=self.request.user)
 
     @property
     def user(self):
-
         return self.request.user
 
 
