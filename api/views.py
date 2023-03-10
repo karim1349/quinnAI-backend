@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -17,10 +17,11 @@ from utils.parser import parse_email_content_html
 
 class EmailViewSet(ModelViewSet):
     serializer_class = EmailSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # return Email.objects.filter(user=self.request.user)
-        return Email.objects.all()
+        return Email.objects.filter(user=self.request.user)
+        # return Email.objects.all()
 
     @property
     def user(self):
@@ -33,7 +34,7 @@ class EmailViewSet(ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    @action(detail=False, methods=["post"])
+    @action(detail=False, methods=["post"],permission_classes=[AllowAny])
     def predict_label(self, request, *args, **kwargs):
         """
         need only email id
@@ -44,7 +45,7 @@ class EmailViewSet(ModelViewSet):
         suggestions = classify_email(data["subject"], data["sender"])
         return Response({"suggestions": suggestions}, status=200)
 
-    @action(detail=False, methods=["post"])
+    @action(detail=False, methods=["post"], permission_classes=[AllowAny])
     def orthographe(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -55,7 +56,7 @@ class EmailViewSet(ModelViewSet):
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)
 
-    @action(detail=False, methods=["post"])
+    @action(detail=False, methods=["post"], permission_classes=[AllowAny])
     def set_label(self, request, *args, **kwargs):
         """
             need only email id
@@ -72,7 +73,7 @@ class EmailViewSet(ModelViewSet):
             return Response({"error": "An error has occured."}, status=400)
 
     @csrf_exempt
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny])
     def generate_headlines(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -85,7 +86,7 @@ class EmailViewSet(ModelViewSet):
         except (ValueError, TypeError):
             return Response({'error': 'An error has occured.'}, status=400)
 
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny])
     @csrf_exempt
     def generate_responses(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -112,7 +113,7 @@ class EmailViewSet(ModelViewSet):
         except (ValueError, TypeError) as ex:
             return Response({"error": f"An error has occured.{ex}"}, status=400)
 
-    @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
+    @action(detail=False, methods=["get"])
     @csrf_exempt
     def predict_multiple_emails_score(self, request, *args, **kwargs):
 
