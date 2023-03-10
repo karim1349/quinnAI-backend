@@ -43,13 +43,12 @@ class GmailClient:
         return last_email
 
     @handle_errors
-    def get_last_email(self):
-
+    def get_last_emails(self, max_results=10):
         results = (
-            self._service.users().messages().list(userId="me", maxResults=1).execute()
+            self._service.users().messages().list(userId="me", maxResults=max_results).execute()
         )
-        # last_email_id = results['messages'][0]['id']
-        return results
+
+        return results.get('messages', [])
 
     @handle_errors
     def add_label_to_email(self, email_id, label_id):

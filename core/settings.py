@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from os import getenv
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3u5qwfvl+1goq_r+8*sylt!v28e&80v4)@3vw%@w_-6p36=$kg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv("DEBUG", True)
 
 ALLOWED_HOSTS = [
     'quinn-development.herokuapp.com',
@@ -97,14 +98,34 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# if DEBUG:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             "NAME": os.environ.get("POSTGRES_DB"),
+#             "USER": os.environ.get("POSTGRES_USER"),
+#             "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+#             "HOST": os.environ.get("POSTGRES_HOST"),
+#             "PORT": os.environ.get("POSTGRES_PORT"),
+#         }
+#     }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -134,8 +155,8 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = "/api"
 ACCOUNT_LOGOUT_ON_GET = True
 
-GOOGLE_CLIENT_ID = '114742795189-9oh9j2r01ciot0atd3c1f0v3ntrk3es5.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', '114742795189-9oh9j2r01ciot0atd3c1f0v3ntrk3es5.apps.googleusercontent.com')
+GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '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')
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

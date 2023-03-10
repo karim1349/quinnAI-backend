@@ -16,6 +16,7 @@ class Email(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="emails", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     labels = models.ManyToManyField(Label, blank=True)
+    score = models.IntegerField(null=True)
 
     def __str__(self):
         return self.email_id
