@@ -18,7 +18,7 @@ class EmailSerializer(ModelSerializer):
 
     class Meta:
         model = Email
-        fields = ['id', 'email_id', 'body', 'user', 'created_at', 'subject', 'sender', 'source', 'label_id', 'headline']
+        fields = ['id', 'email_id', 'body', 'user', 'created_at', 'subject', 'sender', 'source', 'label_id', 'headline', 'score']
         read_only_fields = ['id', 'user', 'created_at',]
 
     def create(self, validated_data):

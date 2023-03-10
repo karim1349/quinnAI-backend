@@ -31,5 +31,6 @@ def scoring_emails_of_user(user_pk, max_results=10):
         detail = client.get_message_details(email["id"])
         subject, body = get_email_elements(detail)
         sender = user.email
-        score = score_email(subject, sender, body)
-        obj, created = Email.objects.update_or_create(email_id=email["id"], defaults={"score": score})
+
+        score = score_email(subject, sender, body[:500])
+        obj, created = Email.objects.update_or_create(email_id=email["id"], user=user, defaults={"score": score})
