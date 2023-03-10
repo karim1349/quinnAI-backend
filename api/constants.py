@@ -37,13 +37,13 @@ ORTHOGRAPH_PROMPT = (
     "renvoie moi ce texte sans les potentielles fautes d'orthographes : {}"
 )
 
-ANSWER_HEADLINE_PROMPT = "Generate four responses to an email from a specific person or the first email if you detect multiples emails. Each response should be between 5 and 7 words long and separated by a pipe symbol (|). The goal is to provide at least four outcomes to the original email. To clarify, the responses should be mutually exclusive and cannot all be true at the same time. The format for the four responses should be 'response1|response2|response3|response4'. Email : '{}'. Email sender : '{}'"
-ANSWER_CONTENT_PROMPT = "You are an email assistant and you can reply like it was me ({}) , i want you to reply to the email or the first email  if you detect multiple emails : '{}' taking in consideration the following reply summary : '{}', in the same idiom as the source message."
+ANSWER_HEADLINE_PROMPT = "Detect the last email of the thread and then generate four responses of this last email. Each response should be between 5 and 7 words long and separated by a pipe symbol (|). The goal is to provide at least four outcomes. To clarify, the responses should be mutually exclusive and cannot all be true at the same time. The format for the four responses should be 'response1|response2|response3|response4'. Email : '{}'. Email sender : '{}'"
+ANSWER_CONTENT_PROMPT = "You are an email assistant and you can reply like it was me ({}) , I want you to detect the last email of the thread and answer it : '{}' taking in consideration the following reply summary : '{}', in the same idiom as the source message."
 SCORE_EMAIL_PROMPT = "Score the importance of  this email from 0 to 100 where the subject {} from sender {} and the body is {} on a scale from 0 to 100, print only a number not a string"
 
 SUMMARIZE_BULLETPOINTS_PROMPT = "Résume le contenu de cette conversation d'email en puces :  {}."
-SUMMARIZE_SHORT_PROMPT = "Fais un court résumé de l'email que j'ai reçu: {}."
-SUMMARIZE_LONG_PROMPT = "Fais un long résumé de l'email que j'ai reçu: {}"
+SUMMARIZE_SHORT_PROMPT = "Fais un résumé synthétique de l'email que j'ai reçu: {}."
+SUMMARIZE_LONG_PROMPT = "Fais un résumé détaillé de l'email que j'ai reçu: {}"
 
 TRANSLATE_PROMPT = "Translate this text : '{}' to {}."
 
@@ -52,9 +52,9 @@ SHORTEN_PROMPT = "Shorten this text : '{}'."
 LENGTHEN_PROMPT = "Lengthen this text : '{}'."
 SIMPLIFY_PROMPT = "Simplify this text : '{}'."
 
-CHANGE_TONE_PROMPT = "Change the tone of this text to make it {} : '{}'."
+CHANGE_TONE_PROMPT = "Tu es un expert de la rédaction d'e-mails, transforme mon email pour le rendre plus {} : '{}'."
 
-DETECT_ACTIONS_PROMPT = "Detect the actions to take on this email : '{}'."
+DETECT_ACTIONS_PROMPT = "Tu es un assistant expert, je veux que tu identifies les actions importantes que je dois réaliser à partir de cet email {}."
 
 REDACT_ANSWER_PROMPT = "Redact an answer from {} to this email conversation : '{}'."
 
