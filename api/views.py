@@ -98,7 +98,7 @@ class EmailViewSet(ModelViewSet):
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)
         
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny])
     @csrf_exempt
     def summarize_conversation(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -110,7 +110,7 @@ class EmailViewSet(ModelViewSet):
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)
 
-    @action(detail=False, methods=["post"])
+    @action(detail=False, methods=["post"], permission_classes=[AllowAny])
     @csrf_exempt
     def translate_email(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -122,7 +122,7 @@ class EmailViewSet(ModelViewSet):
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)
     
-    @action(detail=False, methods=["post"])
+    @action(detail=False, methods=["post"], permission_classes=[AllowAny])
     @csrf_exempt
     def meliorate_email(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -134,7 +134,7 @@ class EmailViewSet(ModelViewSet):
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)
 
-    @action(detail=False, methods=["post"])
+    @action(detail=False, methods=["post"], permission_classes=[AllowAny])
     @csrf_exempt
     def change_tone_email(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -146,7 +146,7 @@ class EmailViewSet(ModelViewSet):
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)
     
-    @action(detail=False, methods=["post"])
+    @action(detail=False, methods=["post"], permission_classes=[AllowAny])
     @csrf_exempt
     def detect_actions_email(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -158,7 +158,7 @@ class EmailViewSet(ModelViewSet):
         except (ValueError, TypeError):
             return Response({"error": "An error has occured."}, status=400)
     
-    @action(detail=False, methods=["post"])
+    @action(detail=False, methods=["post"], permission_classes=[AllowAny])
     @csrf_exempt
     def redact_answer_email(self, request, *args, **kwargs):
         print(request.data)
