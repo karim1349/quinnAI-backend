@@ -5,7 +5,14 @@ from django.conf import settings
 
 from api.constants import (ANSWER_CONTENT_PROMPT, ANSWER_HEADLINE_PROMPT,
                            CLASSIFY_PROMPT, EMAIL_LABEL_CHOICES,
-                           ORTHOGRAPH_PROMPT, SCORE_EMAIL_PROMPT)
+                           ORTHOGRAPH_PROMPT, SCORE_EMAIL_PROMPT,
+                           SUMMARIZE_BULLETPOINTS_PROMPT, SUMMARIZE_LONG_PROMPT, SUMMARIZE_SHORT_PROMPT,
+                           TRANSLATE_PROMPT, 
+                           MELIORATE_PROMPT, SHORTEN_PROMPT, LENGTHEN_PROMPT, SIMPLIFY_PROMPT,
+                           CHANGE_TONE_PROMPT,
+                           DETECT_ACTIONS_PROMPT, 
+                           REDACT_ANSWER_PROMPT
+)
 
 openai.api_key = settings.OPENAI_API_KEY
 
@@ -16,7 +23,7 @@ class ModelException(Exception):
 
 def call_model(prompt, temperature=0.5, max_tokens=250, top_p=1, **kwargs):
     return openai.Completion.create(
-        engine="text-davinci-002",
+        engine="text-davinci-003",
         prompt=prompt,
         temperature=temperature,
         max_tokens=max_tokens,
@@ -50,6 +57,62 @@ def response_generation(sender, source, headline):
     response = call_model(prompt)
     return response["choices"][0]["text"].strip()
 
+
+def conversation_summary(source, sub_action):
+    if sub_action == "BULLET_POINTS":
+        prompt = SUMMARIZE_BULLETPOINTS_PROMPT.format(source)
+        response = call_model(prompt)
+    elif sub_action == "SHORT_SUMMARY":
+        prompt = SUMMARIZE_SHORT_PROMPT.format(source)
+        response = call_model(prompt)
+    elif sub_action == "LONG_SUMMARY":
+        prompt = SUMMARIZE_LONG_PROMPT.format(source)
+        response = call_model(prompt)
+    else: 
+        raise ModelException("Invalid summary type")
+    return response["choices"][0]["text"].strip()
+
+def translate(source, sub_action):
+    if sub_action in ["ENGLISH", "FRENCH", "GERMAN", "SPANISH", "DUTCH", "PORTUGUESE"]:
+        prompt = TRANSLATE_PROMPT.format(source, sub_action)
+        response = call_model(prompt)
+    else:
+        raise ModelException("Invalid translation language")
+    return response["choices"][0]["text"].strip()
+
+def meliorate(source, sub_action):
+    valid_actions = {
+        "MELIORATE_WRITING": MELIORATE_PROMPT,
+        "SHORTEN": SHORTEN_PROMPT,
+        "LENGTHEN": LENGTHEN_PROMPT,
+        "SIMPLIFY": SIMPLIFY_PROMPT
+    }
+
+    if sub_action not in valid_actions:
+        raise ModelException("Invalid melioration type")
+
+    prompt = valid_actions[sub_action].format(source)
+    response = call_model(prompt)
+    return response["choices"][0]["text"].strip()
+
+
+def change_tone(source, sub_action):
+    if sub_action in ["PROFESSIONAL", "CASUAL", "DIRECT", "FRIENDLY"]:
+        prompt = CHANGE_TONE_PROMPT.format(source, sub_action)
+        response = call_model(prompt)
+    else:
+        raise ModelException("Invalid tone change type")
+    return response["choices"][0]["text"].strip()
+
+def detect_actions(source):
+    prompt = DETECT_ACTIONS_PROMPT.format(source)
+    response = call_model(prompt)
+    return response["choices"][0]["text"].strip()
+
+def redact_answer(source, user):
+    prompt = REDACT_ANSWER_PROMPT.format(user, source)
+    response = call_model(prompt)
+    return response["choices"][0]["text"].strip()
 
 def score_email(subject, sender, source):
     """

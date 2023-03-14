@@ -15,11 +15,13 @@ class EmailSerializer(ModelSerializer):
     sender = CharField(max_length=255, required=False)
     headline = CharField(max_length=255, required=False)
     source = CharField(required=False)
+    sub_action = CharField(required=False)
 
     class Meta:
         model = Email
-        fields = ['id', 'email_id', 'body', 'user', 'created_at', 'subject', 'sender', 'source', 'label_id', 'headline', 'score']
-        read_only_fields = ['id', 'user', 'created_at',]
+        fields = ['id', 'email_id', 'body', 'user', 'created_at', 'subject', 'sender', 'source', 'label_id', 'headline', 'sub_action', 'score']
+        read_only_fields = ['id', 'user', 'created_at']
+
 
     def create(self, validated_data):
         user = self.context["request"].user
