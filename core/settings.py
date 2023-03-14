@@ -163,7 +163,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = "none"
-LOGIN_REDIRECT_URL = "/api"
+LOGIN_REDIRECT_URL = "/users/token/get_token"
 ACCOUNT_LOGOUT_ON_GET = True
 
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', '114742795189-9oh9j2r01ciot0atd3c1f0v3ntrk3es5.apps.googleusercontent.com')
