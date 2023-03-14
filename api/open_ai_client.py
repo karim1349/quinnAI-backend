@@ -81,21 +81,20 @@ def translate(source, sub_action):
     return response["choices"][0]["text"].strip()
 
 def meliorate(source, sub_action):
-    if sub_action == "MELIORATE_WRITING":
-        prompt = MELIORATE_PROMPT.format(source)
-        response = call_model(prompt)
-    elif sub_action == "SHORTEN":
-        prompt = SHORTEN_PROMPT.format(source)
-        response = call_model(prompt)
-    elif sub_action == "LENGTHEN":
-        prompt = LENGTHEN_PROMPT.format(source)
-        response = call_model(prompt)
-    elif sub_action == "SIMPLIFY":
-        prompt = SIMPLIFY_PROMPT.format(source)
-        response = call_model(prompt)
-    else:
+    valid_actions = {
+        "MELIORATE_WRITING": MELIORATE_PROMPT,
+        "SHORTEN": SHORTEN_PROMPT,
+        "LENGTHEN": LENGTHEN_PROMPT,
+        "SIMPLIFY": SIMPLIFY_PROMPT
+    }
+
+    if sub_action not in valid_actions:
         raise ModelException("Invalid melioration type")
+
+    prompt = valid_actions[sub_action].format(source)
+    response = call_model(prompt)
     return response["choices"][0]["text"].strip()
+
 
 def change_tone(source, sub_action):
     if sub_action in ["PROFESSIONAL", "CASUAL", "DIRECT", "FRIENDLY"]:
