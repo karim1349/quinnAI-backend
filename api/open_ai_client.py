@@ -131,4 +131,5 @@ def score_email(subject, sender, source):
     if match:
         number = match.group(1)
         return int(number)
-    raise ModelException("Error during calculating score of this email")
+    return
+    # raise ModelException("Error during calculating score of this email")
