@@ -191,11 +191,8 @@ class EmailViewSet(ModelViewSet):
     @csrf_exempt
     def predict_multiple_emails_score(self, request, *args, **kwargs):
 
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        data = serializer.data
         try:
-            scoring_emails_of_user.delay(self.user.pk, max_results=10)
+            scoring_emails_of_user.delay(self.request.user.pk, max_results=10)
             return Response({"score": "success"})
         except (ValueError, TypeError) as ex:
             return Response({"error": f"An error has occured.{ex}"}, status=400)
