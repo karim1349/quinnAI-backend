@@ -54,8 +54,6 @@ INSTALLED_APPS = [
 
     # 3d party packages
     'rest_framework',
-    'rest_auth',
-    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'corsheaders',
     'allauth',
@@ -102,12 +100,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
 
 # if DEBUG:
 #     DATABASES = {
@@ -127,16 +119,16 @@ DATABASES = {
 #             "PORT": os.environ.get("POSTGRES_PORT"),
 #         }
 #     }
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.environ.get("POSTGRES_DB"),
-#         "USER": os.environ.get("POSTGRES_USER"),
-#         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-#         "HOST": os.environ.get("POSTGRES_HOST"),
-#         "PORT": os.environ.get("POSTGRES_PORT"),
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -163,7 +155,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = "none"
-LOGIN_REDIRECT_URL = "/users/token/get_token"
+LOGIN_REDIRECT_URL = "/api"
 ACCOUNT_LOGOUT_ON_GET = True
 
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', '114742795189-9oh9j2r01ciot0atd3c1f0v3ntrk3es5.apps.googleusercontent.com')
@@ -192,7 +184,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 # SOCIALACCOUNT_AUTO_SIGNUP = True
-SOCIALACCOUNT_STORE_TOKENS=True
+SOCIALACCOUNT_STORE_TOKENS= True
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -231,7 +223,6 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 CELERY_BROKER_URL = os.environ.get('BROKER_URL', 'redis://localhost:6379')
 CELERY_RESULT_BACKEND = os.environ.get('BROKER_URL', 'redis://localhost:6379')
 
-CALLBACK_URL_YOU_SET_ON_GOOGLE = "http://eeb7-2a01-e0a-a50-b210-b10d-b3fb-45f3-3172.ngrok.io/oauth/google/login/callback/"
 
 SCOPE_ARGUMENTS = "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.send%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.modify%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.compose%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.insert%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.labels"
 REST_AUTH = {
