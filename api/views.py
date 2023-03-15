@@ -20,8 +20,8 @@ class EmailViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Email.objects.filter(user=self.request.user)
-        # return Email.objects.all()
+        #return Email.objects.filter(user=self.request.user)
+        return Email.objects.all()
 
     @property
     def user(self):
