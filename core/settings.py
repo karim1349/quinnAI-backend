@@ -54,9 +54,11 @@ INSTALLED_APPS = [
 
     # 3d party packages
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
     'allauth',
     'allauth.account',
+    'rest_auth.registration',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django_extensions',
@@ -97,6 +99,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
 
 # if DEBUG:
 #     DATABASES = {
@@ -181,7 +184,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 # SOCIALACCOUNT_AUTO_SIGNUP = True
-SOCIALACCOUNT_STORE_TOKENS=True
+SOCIALACCOUNT_STORE_TOKENS= True
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -219,3 +222,17 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
 CELERY_BROKER_URL = os.environ.get('BROKER_URL', 'redis://localhost:6379')
 CELERY_RESULT_BACKEND = os.environ.get('BROKER_URL', 'redis://localhost:6379')
+
+
+SCOPE_ARGUMENTS = "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.send%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.modify%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.compose%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.insert%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.labels"
+REST_AUTH = {
+    'USE_JWT': True,
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'django.contrib.auth.backends.ModelBackend',
+        'allauth.account.auth_backends.AuthenticationBackend',
+    )
+}
