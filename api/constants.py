@@ -34,7 +34,7 @@ EMAIL_LABEL_CHOICES = CATEGORIES = [
     "Hobbies or Interests",
 ]
 ORTHOGRAPH_PROMPT = (
-    "renvoie moi ce texte sans les potentielles fautes d'orthographes : {}"
+    "renvoie moi ce texte sans les potentielles fautes d'orthographes en gardant les retours à la ligne : {}"
 )
 
 ANSWER_HEADLINE_PROMPT = "Detect the last email of the thread and then generate four responses of this last email. Each response should be between 5 and 7 words long and separated by a pipe symbol (|). The goal is to provide at least four outcomes. To clarify, the responses should be mutually exclusive and cannot all be true at the same time. The format for the four responses should be 'response1|response2|response3|response4'. Email : '{}'. Email sender : '{}'"
@@ -45,12 +45,12 @@ SUMMARIZE_BULLETPOINTS_PROMPT = "Résume le contenu de cette conversation d'emai
 SUMMARIZE_SHORT_PROMPT = "Fais un résumé synthétique de l'email que j'ai reçu: {}."
 SUMMARIZE_LONG_PROMPT = "Fais un résumé détaillé de l'email que j'ai reçu: {}"
 
-TRANSLATE_PROMPT = "Translate this text : '{}' to {}."
+TRANSLATE_PROMPT = "Translate this text keeping the line breaks : '{}' to {}."
 
-MELIORATE_PROMPT = "Meliorate this text : '{}'."
-SHORTEN_PROMPT = "Shorten this text : '{}'."
-LENGTHEN_PROMPT = "Lengthen this text : '{}'."
-SIMPLIFY_PROMPT = "Simplify this text : '{}'."
+MELIORATE_PROMPT = "Améliore cet e-mail sans en changer la tonalité et en gardant les retours à la ligne: '{}'."
+SHORTEN_PROMPT = "Shorten this text keeping the line breaks : '{}'."
+LENGTHEN_PROMPT = "Lengthen this text keeping the line breaks : '{}'."
+SIMPLIFY_PROMPT = "Simplify this text keeping the line breaks: '{}'."
 
 CHANGE_TONE_PROMPT = "Tu es un expert de la rédaction d'e-mails, transforme mon email pour le rendre plus {} : '{}'."
 
