@@ -34,6 +34,7 @@ class EmailViewSet(ModelViewSet):
 @api_view(('GET',))
 @renderer_classes((JSONRenderer,))
 def get_token(request):
+    print("requeest", request.user)
     refresh = RefreshToken.for_user(request.user)
 
     response = {
