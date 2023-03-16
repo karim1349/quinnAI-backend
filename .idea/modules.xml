@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../merchguru/.idea/merchguru.iml" filepath="$PROJECT_DIR$/../merchguru/.idea/merchguru.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/quinnAI-backend.iml" filepath="$PROJECT_DIR$/.idea/quinnAI-backend.iml" />
     </modules>
   </component>
