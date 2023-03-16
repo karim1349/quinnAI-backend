@@ -21,7 +21,7 @@ class ModelException(Exception):
     pass
 
 
-def call_model(prompt, temperature=0.5, max_tokens=500, top_p=1, **kwargs):
+def call_model(prompt, temperature=0.5, max_tokens=1000, top_p=1, **kwargs):
     return openai.Completion.create(
         engine="text-davinci-003",
         prompt=prompt,
