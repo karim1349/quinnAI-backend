@@ -11,9 +11,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action, api_view, renderer_classes
 from rest_framework_simplejwt.tokens import RefreshToken
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-from dj_rest_auth.registration.views import SocialLoginView
 
 
 class EmailViewSet(ModelViewSet):
@@ -48,19 +45,13 @@ def get_token(request):
     }
     return Response(response, status=200)
 
-@api_view(('GET',))
-@renderer_classes((JSONRenderer,))
-def google_callback(request):
-    url = reverse("google_login")
-
-    print("uuuuurl", settings.DOMAIN+url)
-    print("code", request.GET.get("code"))
-    resp = requests.post(settings.DOMAIN+url, json={"code": request.GET.get("code")})
-    print("reesp", resp.json())
-    return Response({"status": resp.json()}, status=200)
-
-
-class GoogleLogin(SocialLoginView):
-    adapter_class = GoogleOAuth2Adapter
-    callback_url = settings.CALLBACK_URL_YOU_SET_ON_GOOGLE
-    client_class = OAuth2Client
+# @api_view(('GET',))
+# @renderer_classes((JSONRenderer,))
+# def google_callback(request):
+#     url = reverse("google_login")
+#
+#     print("uuuuurl", settings.DOMAIN+url)
+#     print("code", request.GET.get("code"))
+#     resp = requests.post(settings.DOMAIN+url, json={"code": request.GET.get("code")})
+#     print("reesp", resp.json())
+#     return Response({"status": resp.json()}, status=200)

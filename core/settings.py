@@ -54,11 +54,12 @@ INSTALLED_APPS = [
 
     # 3d party packages
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'corsheaders',
     'allauth',
     'allauth.account',
-    'rest_auth.registration',
+    # 'rest_auth.registration',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django_extensions',
@@ -233,6 +234,7 @@ REST_AUTH = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'django.contrib.auth.backends.ModelBackend',
         'allauth.account.auth_backends.AuthenticationBackend',
     )
