@@ -39,7 +39,7 @@ ORTHOGRAPH_PROMPT = (
 
 ANSWER_HEADLINE_PROMPT = "Detect the last email of the thread and then generate four responses of this last email. Each response should be between 5 and 7 words long and separated by a pipe symbol (|). The goal is to provide at least four outcomes. To clarify, the responses should be mutually exclusive and cannot all be true at the same time. The format for the four responses should be 'response1|response2|response3|response4'. Email : '{}'. Email sender : '{}'"
 ANSWER_CONTENT_PROMPT = "You are an email assistant and you can reply like it was me ({}) , I want you to detect the last email of the thread and answer it : '{}' taking in consideration the following reply summary : '{}', in the same idiom as the source message."
-SCORE_EMAIL_PROMPT = "Score the importance of  this email from 0 to 100 where the subject {} from sender {} and the body is {} on a scale from 0 to 100, print only a number not a string"
+SCORE_EMAIL_PROMPT = "Score the urgency of this email from 0 to 100 where the subject {} from sender {} and the body is {} on a scale from 0 to 100, print only a number not a string"
 
 SUMMARIZE_BULLETPOINTS_PROMPT = "Résume le contenu de cette conversation d'email en puces :  {}."
 SUMMARIZE_SHORT_PROMPT = "Fais un résumé synthétique de l'email que j'ai reçu: {}."
