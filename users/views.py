@@ -1,3 +1,6 @@
+import requests
+from django.conf import settings
+from django.urls import reverse
 from rest_framework.renderers import JSONRenderer
 from rest_framework.viewsets import ModelViewSet
 
@@ -8,7 +11,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action, api_view, renderer_classes
 from rest_framework_simplejwt.tokens import RefreshToken
-
 
 
 class EmailViewSet(ModelViewSet):
@@ -42,3 +44,14 @@ def get_token(request):
         'access': str(refresh.access_token),
     }
     return Response(response, status=200)
+
+# @api_view(('GET',))
+# @renderer_classes((JSONRenderer,))
+# def google_callback(request):
+#     url = reverse("google_login")
+#
+#     print("uuuuurl", settings.DOMAIN+url)
+#     print("code", request.GET.get("code"))
+#     resp = requests.post(settings.DOMAIN+url, json={"code": request.GET.get("code")})
+#     print("reesp", resp.json())
+#     return Response({"status": resp.json()}, status=200)
